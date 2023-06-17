@@ -14,7 +14,7 @@ class ProductPositionSerializer(serializers.ModelSerializer):
     # настройте сериализатор для позиции продукта на складе
     class Meta:
         model = StockProduct
-        fields = ['product', 'quantity', 'price']
+        fields = ['product', 'quantity', 'price', ]
 
 
 class StockSerializer(serializers.ModelSerializer):
@@ -23,7 +23,7 @@ class StockSerializer(serializers.ModelSerializer):
     # настройте сериализатор для склада
     class Meta:
         model = Stock
-        fields = ['id', 'address', 'positions']
+        fields = ['address', 'positions']
 
     def create(self, validated_data):
         # достаем связанные данные для других таблиц
@@ -50,5 +50,7 @@ class StockSerializer(serializers.ModelSerializer):
         # здесь вам надо обновить связанные таблицы
         # в нашем случае: таблицу StockProduct
         # с помощью списка positions
-
+        for item in positions:
+            i = StockProduct.objects.update(stock=stock, **item)
+        
         return stock
