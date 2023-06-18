@@ -15,5 +15,11 @@ class StockViewSet(ModelViewSet):
     serializer_class = StockSerializer
     filter_backends = [SearchFilter]
     filterset_fields = ['products']
-    search_fields = ['title']
-    # при необходимости добавьте параметры фильтрации
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.query_params.get('search', None)
+        if search_query:
+            queryset = queryset.filter(products__title__icontains=search_query)
+        return queryset
+    
