@@ -40,7 +40,6 @@ GET {{baseUrl}}/products/?search=помидор
 Content-Type: application/json
 
 ###
-
 # создание склада
 POST {{baseUrl}}/stocks/
 Content-Type: application/json
@@ -51,17 +50,16 @@ Content-Type: application/json
     {
       "product": 1,
       "quantity": 250,
-      "price": 120.50,
-    
+      "price": 120.50
     },
     {
       "product": 2,
       "quantity": 100,
-      "price": 180,
-      
+      "price": 180
     }
   ]
 }
+
 
 ###
 
@@ -72,12 +70,12 @@ Content-Type: application/json
 {
   "positions": [
     {
-      "product": 4,
+      "product": 3,
       "quantity": 100,
       "price": 130.80
     },
     {
-      "product": 5,
+      "product": 4,
       "quantity": 243,
       "price": 145
     }
@@ -92,5 +90,5 @@ Content-Type: application/json
 ###
 
 # поиск складов, где есть определенный продукт
-GET {{baseUrl}}/stocks/?search=Колб
+GET {{baseUrl}}/stocks/?search=помид
 Content-Type: application/json

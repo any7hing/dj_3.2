@@ -7,7 +7,9 @@ from logistic.serializers import ProductSerializer, StockSerializer
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # при необходимости добавьте параметры фильтрации
+    filter_backends = [SearchFilter]
+    search_fields = ['title', 'description']
+    
 
 
 class StockViewSet(ModelViewSet):
@@ -15,11 +17,5 @@ class StockViewSet(ModelViewSet):
     serializer_class = StockSerializer
     filter_backends = [SearchFilter]
     filterset_fields = ['products']
-    
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        search_query = self.request.query_params.get('search', None)
-        if search_query:
-            queryset = queryset.filter(products__title__icontains=search_query)
-        return queryset
+    search_fields = ['products__title']
     
